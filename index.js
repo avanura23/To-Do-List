@@ -22,8 +22,7 @@ app.get("/",function(req,res){
 
     var date = today.toLocaleDateString("en-IN",options);
 
-    var day = arr[h];
-    res.render("lists",{kindOfDay : date , newListItem : nI});
+    res.render("lists",{kindOfTodo : date , newListItem : nI});
 });
 
 app.post("/",function(req,res){
@@ -33,6 +32,18 @@ app.post("/",function(req,res){
 
 //home route ends
 
+//work route starts
+
+app.get("/work",function(req,res){
+    res.render("lists-work",{kindOfTodo:"Work" , newListItem : wI});
+});
+
+app.post("/work",function(req,res){
+    wI.push(req.body.newItem);
+    res.redirect("/work");
+});
+
+//work route ends
 
 app.listen(3000,function(req,res){
     console.log("Server started on port 3000");
