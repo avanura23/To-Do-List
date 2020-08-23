@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(__dirname+"/date.js");
 
 const app = express();
 app.set("view engine","ejs");
@@ -11,18 +12,8 @@ var wI=[];
 //home route starts
 app.get("/",function(req,res){
 
-    var today = new Date();
-    var h = today.getDay();
-    var options = {
-        weekday : "long",
-        day : "numeric",
-        month : "long",
-        year : "numeric"
-    };
-
-    var date = today.toLocaleDateString("en-IN",options);
-
-    res.render("lists",{kindOfTodo : date , newListItem : nI});
+    var d = date.getDate();
+    res.render("lists",{kindOfTodo : d , newListItem : nI});
 });
 
 app.post("/",function(req,res){
@@ -35,7 +26,8 @@ app.post("/",function(req,res){
 //work route starts
 
 app.get("/work",function(req,res){
-    res.render("lists-work",{kindOfTodo:"Work" , newListItem : wI});
+    var j = date.getDay();
+    res.render("lists-work",{kindOfTodo:"Work for "+j , newListItem : wI});
 });
 
 app.post("/work",function(req,res){
